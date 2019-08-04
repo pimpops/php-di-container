@@ -12,6 +12,8 @@ class Starter {
 
   public function run() {
 
+    print_r($this->di);
+
     $contactBook = $this->di->get('contactBook');
     $messenger = $this->di->get('messenger');
 
