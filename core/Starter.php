@@ -2,26 +2,27 @@
 
 namespace Core;
 
+use Core\Helper\Common;
+
 class Starter {
 
   private $di;
+  public $router;
 
   public function __construct($di) {
     $this->di = $di;
+    $this->router = $this->di->get('router');
   }
 
   public function run() {
 
-    print_r($this->di);
+    $this->router->add('home', '/', 'HomeController:index');
+    $this->router->add('product', '/user/12', 'ProductController:index');
 
-    $contactBook = $this->di->get('contactBook');
-    $messenger = $this->di->get('messenger');
+    $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
 
-    $list = $contactBook->getList();
-
-    foreach ($list as $contact) {
-      echo( $messenger->sendMessage($contact['number']) . '<br>' );
-    }
+    print_r($routerDispatch);
   }
 }
+
 ?>

@@ -1,16 +1,16 @@
 <?php
 
-namespace Core\Provider\Db;
+namespace Core\Provider\Router;
 
 use Core\Provider\AbstractProvider;
-use Core\Worker\Db\Connection;
+use Core\Worker\Router\Router;
 
 class Provider extends AbstractProvider {
 
-  public $workerName = 'db';
+  public $workerName = 'router';
 
   public function init() {
-    $instance = new Connection();
+    $instance = new Router('http://localhost/');
 
     $this->di->set($this->workerName, $instance);
   }
