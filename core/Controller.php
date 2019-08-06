@@ -2,10 +2,14 @@
 
 namespace Core;
 
+use Core\DI;
+
 abstract class Controller {
 
-  public function __construct($di) {
+  protected $di;
 
+  public function __construct(DI $di) {
+    $this->di = $di;
   }
 }
 ?>
