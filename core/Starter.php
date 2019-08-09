@@ -19,6 +19,8 @@ class Starter {
 
     try {
 
+      require_once __DIR__ . '/../cms/Routes.php';
+
       $this->router->add('home', '/', 'HomeController:index');
       $this->router->add('news', '/news', 'HomeController:news');
       $this->router->add('product', '/user/12', 'ProductController:index');
