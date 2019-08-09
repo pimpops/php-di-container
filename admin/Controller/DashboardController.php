@@ -1,18 +1,12 @@
 <?php
 
-namespace Cms\Controller;
+namespace Admin\Controller;
 
-class HomeController extends CmsController {
+class DashboardController extends AdminController {
 
   public function index() {
-    $data = ['name' => 'Andrii'];
-    $this->view->render('index', $data);
+    $this->view->render('dashboard');
   }
-
-  public function news($id) {
-    echo $id;
-  }
-
 }
 
 ?>

@@ -13,7 +13,8 @@ class View {
   }
 
   public function render($template, $vars = []) {
-    $templatePath = ROOT_DIR . '/' . mb_strtolower(ENV) . '/View/themes/default/' . $template . '.php';
+    $env = ENV === 'Site' ? mb_strtolower(ENV) : '';
+    $templatePath = ROOT_DIR . '/' . $env .  '/View/themes/default/' . $template . '.php';
 
     if (!is_file($templatePath)) {
       throw new \InvalidArgumentException(
