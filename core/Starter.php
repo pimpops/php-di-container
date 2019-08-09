@@ -19,7 +19,7 @@ class Starter {
 
     try {
 
-      require_once __DIR__ . '/../cms/Routes.php';
+      require_once __DIR__ . '/../' . mb_strtolower(ENV) . '/Routes.php';
 
       $this->router->add('home', '/', 'HomeController:index');
       $this->router->add('news', '/news', 'HomeController:news');
@@ -34,7 +34,7 @@ class Starter {
 
       list($class, $action) = explode(':', $routerDispatch->getController(), 2);
 
-      $controller = '\\Cms\\Controller\\' . $class;
+      $controller = '\\' . ENV .  '\\Controller\\' . $class;
       $parameters = $routerDispatch->getParameters();
 
       call_user_func_array([new $controller($this->di), $action], $parameters);

@@ -1,10 +1,10 @@
 <?php
 
-namespace Cms\Controller;
+namespace Site\Controller;
 
 use Core\Controller; 
 
-class CmsController extends Controller {
+class SiteController extends Controller {
 
   public function __construct($di) {
     parent::__construct($di);
