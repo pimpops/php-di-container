@@ -8,24 +8,28 @@ class Auth {
 
   protected $di;
   protected $db;
+  protected $queryBuilder;
 
   public function __construct($di) {
     $this->di = $di;
-    $this->db = $this->di->get('db'); 
+    $this->db = $this->di->get('db');
+    $this->queryBuilder = $this->di->get('queryBuilder');
   }
 
   public function isRole($role = 'admin') {
 
-    $user_hash = Cookie::get('user_hash'); 
-    
+    $user_hash = Cookie::get('user_hash');
+
     if ($user_hash !== null) {
 
-      $query = $this->db->query('
-        SELECT *
-        FROM `user`
-        WHERE hash="' . $user_hash . '"
-        LIMIT 1
-      ');
+      $sql = $this->queryBuilder
+        ->select()
+        ->from('user')
+        ->where('hash', $user_hash)
+        ->limit(1)
+        ->sql();
+
+      $query = $this->db->query($sql, $this->queryBuilder->values);
 
       if (!empty($query)) {
         $user = $query[0];
@@ -33,7 +37,7 @@ class Auth {
           return true;
         }
       }
-    }  
+    }
 
     return false;
   }

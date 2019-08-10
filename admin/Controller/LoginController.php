@@ -30,13 +30,15 @@ class LoginController extends Controller {
 
     $params = $this->request->post;
 
-    $query = $this->db->query('
-      SELECT *
-      FROM `user`
-      WHERE email="' . $params['email'] . '"
-      AND password="' . md5($params['password']) . '"
-      LIMIT 1
-    ');
+    $sql = $this->queryBuilder
+      ->select()
+      ->from('user')
+      ->where('email', $params['email'])
+      ->where('password', md5($params['password']))
+      ->limit(1)
+      ->sql();
+
+    $query = $this->db->query($sql, $this->queryBuilder->values);
 
     if (!empty($query)) {
 
@@ -44,19 +46,21 @@ class LoginController extends Controller {
 
       if ($user->role == 'admin') {
 
-        $hash = md5($user->id . $user->email . $user->password . $this->auth->salt()); 
+        $hash = md5($user->id . $user->email . $user->password . $this->auth->salt());
 
-        $this->db->execute('
-          UPDATE user
-          SET hash="' . $hash . '"
-          WHERE id=' . $user->id . '
-        ');
+        $sql = $this->queryBuilder
+          ->update('user')
+          ->set(['hash' => $hash])
+          ->where('id', $user->id)
+          ->sql();
+
+        $this->db->execute($sql, $this->queryBuilder->values);
 
         $this->auth->authorize($hash);
       }
 
-    } 
-  
+    }
+
     header('Location: /admin/login/');
     exit;
   }
