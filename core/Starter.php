@@ -19,12 +19,17 @@ class Starter {
 
     try {
 
-      require_once __DIR__ . '/../' . mb_strtolower(ENV) . '/Routes.php';
+      $this->initRoutes();
+      
+    } catch (\Exception $e) {
+      echo $e->getMessage();
+      exit;
+    }
 
-      $this->router->add('home', '/', 'HomeController:index');
-      $this->router->add('news', '/news', 'HomeController:news');
-      $this->router->add('product', '/user/12', 'ProductController:index');
-      $this->router->add('news_single', '/news/(id:int)', 'HomeController:news');
+  }
+
+  public function initRoutes() {
+      require_once __DIR__ . '/../' . mb_strtolower(ENV) . '/Routes.php';
 
       $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
 
@@ -38,12 +43,6 @@ class Starter {
       $parameters = $routerDispatch->getParameters();
 
       call_user_func_array([new $controller($this->di), $action], $parameters);
-
-    } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
-    }
-
   }
 }
 
