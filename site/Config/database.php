@@ -1,8 +1,9 @@
 <?php
+
 return [
-  'host' => 'localhost',
-  'db_name' => 'cms',
-  'username' => 'root',
-  'password' => '1111',
+  'host' => 'mysql',
+  'db_name' => 'moe_db',
+  'username' => 'moeuser',
+  'password' => 'moepass',
   'charset' => 'utf8'
 ];

@@ -3,6 +3,7 @@
 namespace Core\Worker\Db;
 
 use \PDO;
+use \Core\Worker\Config\Config;
 
 class Connection {
 
@@ -14,13 +15,7 @@ class Connection {
     }
     private function connect()
     {
-        $config = [
-            'host' => 'mysql',
-            'db_name' => 'moe_db',
-            'username' => 'moeuser',
-            'password' => 'moepass',
-            'charset' => 'utf8'
-        ];
+        $config = Config::file('database'); 
         $dsn = 'mysql:host='.$config['host'].';port=3306;dbname='. $config['db_name'];
         $this->link = new PDO($dsn, $config['username'], $config['password']);
         return $this;
