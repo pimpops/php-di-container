@@ -10,7 +10,7 @@ class Provider extends AbstractProvider {
   public $workerName = 'load';
 
   public function init() {
-    $instance = new Load();
+    $instance = new Load($this->di);
 
     $this->di->set($this->workerName, $instance);
   }

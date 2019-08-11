@@ -2,31 +2,36 @@
 
 namespace Core\Worker\Load;
 
+use Core\DI;
+
 class Load {
+
+    public $di;
+
     const MASK_MODEL_ENTITY     = '\%s\Model\%s\%s';
     const MASK_MODEL_REPOSITORY = '\%s\Model\%s\%sRepository';
 
+    public function __construct(DI $di) {
+
+      $this->di = $di;
+
+      return $this;
+    }
+
     public function model($modelName, $modelDir = false) {
-
-        global $di;
-
         $modelName  = ucfirst($modelName);
-        $model      = new \stdClass();
         $modelDir   = $modelDir ? $modelDir : $modelName;
-
-        $namespaceEntity = sprintf(
-            self::MASK_MODEL_ENTITY,
-            ENV, $modelDir, $modelName
-        );
-
-        $namespaceRepository = sprintf(
+        $namespaceModel = sprintf(
             self::MASK_MODEL_REPOSITORY,
             ENV, $modelDir, $modelName
         );
-
-        $model->entity     = $namespaceEntity;
-        $model->repository = new $namespaceRepository($di);
-
-        return $model;
+        $isClassModel = class_exists($namespaceModel);
+        if ($isClassModel) {
+            // Set to DI
+            $modelRegistry = $this->di->get('model') ?: new \stdClass();
+            $modelRegistry->{lcfirst($modelName)} = new $namespaceModel($this->di);
+            $this->di->set('model', $modelRegistry);
+        }
+        return $isClassModel;
     }
 }
