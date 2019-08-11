@@ -14,7 +14,7 @@ class Connection {
     }
 
     private function connect() {
-        $config = Config::file('database');
+        $config = Config::group('database');
         $dsn = 'mysql:host='.$config['host'].';port=3306;dbname='. $config['db_name'];
         $this->link = new PDO($dsn, $config['username'], $config['password']);
 

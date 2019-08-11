@@ -2,7 +2,17 @@
 
 namespace Core\Worker\Template;
 
+use Core\Worker\Config\Config;
+
 class Theme {
+
+  public $path;
+  public static $themeMask;
+
+  public function __construct() {
+    $this->path = path('view');
+    self::$themeMask = mb_strtolower(ENV) . '/View/themes/%s'; 
+  }
   
   const RULES_NAME_FILE = [
     'header' => 'header-%s',
@@ -12,6 +22,12 @@ class Theme {
 
   public $url = '';
   protected $data = [];
+
+  public static function getUrl() {
+
+      $currentTheme = Config::item('defaultTheme', 'main');
+      return sprintf(self::$themeMask, $currentTheme);
+  }
 
   public function getData() {
     return $this->data;
