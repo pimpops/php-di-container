@@ -58,7 +58,7 @@ class Theme {
   private function loadTemplateFile($nameFile, $data = []) {
 
     $env = ENV === 'Site' ? mb_strtolower(ENV) : '';
-    $templateFile = ROOT_DIR . '/' . $env . '/View/themes/default/' . $nameFile . '.php';
+    $templateFile = path('view') . '/themes/default/' . $nameFile . '.php';
 
     if (is_file($templateFile)) {
       extract($this->getData());

@@ -8,7 +8,8 @@ class DashboardController extends AdminController {
 
     $this->load->model('User');
 
-    print_r($this->model->user->getUsers());
+    // Load language
+    $this->load->language('dashboard/main');
 
     $this->view->render('dashboard');
   }

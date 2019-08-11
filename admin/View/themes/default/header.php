@@ -29,7 +29,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="#">
-                                <i class="icon-speedometer icons"></i> Home
+                            <i class="icon-speedometer icons"></i><?=$lang->dashboardMenu['home']?>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link">
+                            <a href="/admin/settings/general/" class="nav-link">
                                 <i class="icon-equalizer icons"></i> Settings
                             </a>
                         </li>

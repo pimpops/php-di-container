@@ -4,11 +4,11 @@ namespace Core\Helper;
 
 class Common {
 
-  function getMethod() {
+  public static function getMethod() {
     return $_SERVER['REQUEST_METHOD'];
   }
 
-  function getPathUrl() {
+  public static function getPathUrl() {
     $pathUrl = $_SERVER['REQUEST_URI'];
 
     if ($position = strpos($pathUrl, '?')) {

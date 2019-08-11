@@ -1,18 +1,36 @@
 <?php
 
-namespace Cms\Controller;
+namespace Admin\Controller;
 
-class HomeController extends CmsController {
+class SettingController extends AdminController {
 
-  public function index() {
-    $data = ['name' => 'Andrii'];
-    $this->view->render('index', $data);
+  public function general() {
+
+    $this->load->model('Setting');
+
+    $data['settings'] = $this->model->setting->getSettings();
+    $data['languages'] = languages();
+
+
+    $this->view->render('setting/general', $data);
   }
 
-  public function news($id) {
-    echo $id;
-  }
+  public function updateSetting() {
 
+    $this->load->model('Setting');
+    $this->load->model('User');
+
+    $params = $this->request->post;
+
+    if (isset($params['admin_email'])) {
+      $user['id'] = $this->data['user']->id;
+      $user['email'] = $params['admin_email'];
+
+      $this->model->user->updateEmail($user);
+    }
+
+    $this->model->setting->update($params);
+  }
 }
 
 ?>

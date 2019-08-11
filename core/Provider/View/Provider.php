@@ -10,7 +10,7 @@ class Provider extends AbstractProvider {
   public $workerName = 'view';
 
   public function init() {
-    $instance = new View();
+    $instance = new View($this->di);
 
     $this->di->set($this->workerName, $instance);
   }

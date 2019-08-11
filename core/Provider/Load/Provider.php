@@ -13,6 +13,8 @@ class Provider extends AbstractProvider {
     $instance = new Load($this->di);
 
     $this->di->set($this->workerName, $instance);
+
+    return $this;
   }
 }
 

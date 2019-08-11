@@ -3,8 +3,23 @@
 namespace Admin\Model\User;
 
 use \Core\Model;
+use Core\Helper\Cookie;
 
 class UserRepository extends Model {
+
+  public function getUserByHash() {
+
+    $user_hash = Cookie::get('user_hash');
+
+    $sql = $this->queryBuilder
+      ->select()
+      ->from('user')
+      ->where('hash', $user_hash)
+      ->limit(1)
+      ->sql();
+
+    return $this->db->query($sql, $this->queryBuilder->values)[0];
+  }
 
   public function getUsers() {
 
@@ -17,9 +32,9 @@ class UserRepository extends Model {
     return $this->db->query($sql);
   }
 
-  public function test() {
-    $user = new User(1);
-    $user->setEmail('admin@admin.com');
+  public function updateEmail($params) {
+    $user = new User($params['id']);
+    $user->setEmail($params['email']);
     $user->save();
   }
 
