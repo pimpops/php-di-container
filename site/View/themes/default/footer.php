@@ -34,6 +34,7 @@
             </div>
         </div>
     </footer>
+<?php Asset::render('js'); ?>
 
 
 </body>

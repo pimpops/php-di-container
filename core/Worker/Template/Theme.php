@@ -9,9 +9,18 @@ class Theme {
   public $path;
   public static $themeMask;
 
+  public $url = '';
+  protected $data = [];
+
+  public $asset;
+  public $theme;
+
   public function __construct() {
     $this->path = path('view');
-    self::$themeMask = mb_strtolower(ENV) . '/View/themes/%s'; 
+    self::$themeMask = DS . mb_strtolower(ENV) . '/View/themes/%s'; 
+
+    $this->theme = $this;
+    $this->asset = new Asset();
   }
   
   const RULES_NAME_FILE = [
@@ -20,8 +29,6 @@ class Theme {
     'sidebar' => 'sidebar-%s'
   ];
 
-  public $url = '';
-  protected $data = [];
 
   public static function getUrl() {
 
@@ -73,8 +80,7 @@ class Theme {
 
   private function loadTemplateFile($nameFile, $data = []) {
 
-    $env = ENV === 'Site' ? mb_strtolower(ENV) : '';
-    $templateFile = path('view') . '/themes/default/' . $nameFile . '.php';
+    $templateFile = self::getThemePath() . DS . $nameFile . '.php';
 
     if (is_file($templateFile)) {
       extract($this->getData());
@@ -85,5 +91,9 @@ class Theme {
         sprintf('View file %s does not exist!', $templateFile)
       ); 
     }
+  }
+
+  public static function getThemePath() {
+    return path('view') . '/themes/default';
   }
 }

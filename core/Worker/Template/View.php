@@ -17,6 +17,8 @@ class View {
 
   public function render($template, $vars = []) {
 
+    include path('view') . '/themes/default/functions.php';
+
     $templatePath = path('view') . '/themes/default/' . $template . '.php';
 
     if (!is_file($templatePath)) {
