@@ -5,11 +5,6 @@
 [Pimpops Playground | pimpops/php-di-container](https://pimpops.mdmfd.com/github/pimpops/php-di-container)
 
 ```
-sudo docker-compose up --build
-```
-
-```
-sudo docker ps  
-docker exec -it 915744574d43 /bin/bash
-composer install
+docker-compose up -d
+docker exec -i moe-mysql-app sh -c exec mysql -umoeuser -pmoepass moe_db < moe_db.sql
 ```
