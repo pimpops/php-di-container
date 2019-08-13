@@ -7,17 +7,25 @@ use Core\DI;
 
 class View {
 
-  protected $theme;
   public $di;
-  
+
+  protected $theme;
+  protected $setting;
+  protected $menu;
+
   public function __construct(DI $di) {
+    $this->di = $di;
     $this->theme = new Theme();
-    $this->di = $di; 
+    $this->setting = new Setting($di);
+    $this->menu = new Menu($di);
   }
 
   public function render($template, $vars = []) {
 
-    include path('view') . '/themes/default/functions.php';
+    $functionsFile = path('view') . '/themes/default/functions.php';
+    if (file_exists($functionsFile)) {
+      include $functionsFile;
+    }
 
     $templatePath = path('view') . '/themes/default/' . $template . '.php';
 
@@ -39,7 +47,7 @@ class View {
     } catch(\Exception $e) {
       ob_end_clean();
       throw $e;
-    } 
+    }
 
     echo ob_get_clean();
   }

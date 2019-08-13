@@ -16,6 +16,15 @@ class SettingRepository extends Model
         return $this->db->query($sql);
     }
 
+    public function getSettingValue($keyField) {
+        $sql = $this->queryBuilder->select('value')
+            ->from('setting')
+            ->where('key_field', $keyField)
+            ->sql();
+        $query = $this->db->query($sql, $this->queryBuilder->values);
+        return isset($query[0]) ? $query[0]->value : null;
+    }
+
     public function update(array $params) {
         if (!empty($params)) {
             foreach ($params as $key => $value) {

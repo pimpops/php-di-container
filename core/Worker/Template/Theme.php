@@ -17,12 +17,12 @@ class Theme {
 
   public function __construct() {
     $this->path = path('view');
-    self::$themeMask = DS . mb_strtolower(ENV) . '/View/themes/%s'; 
+    self::$themeMask = DS . mb_strtolower(ENV) . '/View/themes/%s';
 
     $this->theme = $this;
     $this->asset = new Asset();
   }
-  
+
   const RULES_NAME_FILE = [
     'header' => 'header-%s',
     'footer' => 'footer-%s',
@@ -44,16 +44,23 @@ class Theme {
     $this->data = $data;
   }
 
+  public static function title() {
+    $nameSite = Setting::get('name_site');
+    $description = Setting::get('description');
+
+    echo $nameSite . ' | ' . $description;
+  }
+
   public function header($name = '') {
     $name = (string) $name;
     $file = 'header';
 
     if ($name !== '') {
       $file = sprintf(self::RULES_NAME_FILE['header'], $name);
-    } 
+    }
 
     $this->loadTemplateFile($file);
-  } 
+  }
 
   public function footer($name = '') {
     $name = (string) $name;
@@ -61,14 +68,14 @@ class Theme {
 
     if ($name !== '') {
       $file = sprintf(self::RULES_NAME_FILE['footer'], $name);
-    } 
+    }
 
     $this->loadTemplateFile($file);
-  } 
+  }
 
   public function sidebar($name = '') {
 
-  } 
+  }
 
   public function block($name = '', $data = []) {
     $name = (string) $name;
@@ -76,7 +83,7 @@ class Theme {
     if ($name !== '') {
       $this->loadTemplateFile($name, $data);
     }
-  } 
+  }
 
   private function loadTemplateFile($nameFile, $data = []) {
 
@@ -89,7 +96,7 @@ class Theme {
     } else {
       throw new \Exception(
         sprintf('View file %s does not exist!', $templateFile)
-      ); 
+      );
     }
   }
 
