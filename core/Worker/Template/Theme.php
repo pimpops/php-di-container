@@ -9,8 +9,8 @@ class Theme {
   public $path;
   public static $themeMask;
 
-  public $url = '';
-  protected $data = [];
+  protected static $url = '';
+  protected static $data = [];
 
   public $asset;
   public $theme;
@@ -29,19 +29,18 @@ class Theme {
     'sidebar' => 'sidebar-%s'
   ];
 
-
   public static function getUrl() {
 
       $currentTheme = Config::item('defaultTheme', 'main');
       return sprintf(self::$themeMask, $currentTheme);
   }
 
-  public function getData() {
-    return $this->data;
+  public static function getData() {
+    return static::$data;
   }
 
   public function setData($data) {
-    $this->data = $data;
+    static::$data = $data;
   }
 
   public static function title() {
@@ -77,13 +76,13 @@ class Theme {
 
   }
 
-  public function block($name = '', $data = []) {
-    $name = (string) $name;
-
-    if ($name !== '') {
-      $this->loadTemplateFile($name, $data);
+  public static function block($name = '', $data = [])
+    {
+        $name = (string) $name;
+        if ($name !== '') {
+            Component::load($name, $data);
+        }
     }
-  }
 
   private function loadTemplateFile($nameFile, $data = []) {
 

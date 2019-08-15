@@ -1,14 +1,3 @@
-.themes-cards {
-  display: flex;
-  flex-wrap: wrap;
-}
-.four.wide.column {
-  width: 25%;
-  padding: 5px;
-}
-.four.wide.column img {
-  width: 100%;
-}
 .right-toolbar{
     width: 200px;
     text-align: right;
@@ -114,4 +103,11 @@ ol.example li.placeholder:before {
 }
 .button-remove i{
     line-height: 28px;
+}
+
+.menu-item {
+    display: flex;
+}
+.menu-item .menu-item-event {
+    display: flex;
 }

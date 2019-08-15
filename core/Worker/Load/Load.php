@@ -20,12 +20,15 @@ class Load {
       return $this;
     }
 
-    public function model($modelName, $modelDir = false) {
+    public function model($modelName, $modelDir = false, $env = false) {
+
         $modelName  = ucfirst($modelName);
         $modelDir   = $modelDir ? $modelDir : $modelName;
+        $env = $env ? $env : ENV;
+
         $namespaceModel = sprintf(
             self::MASK_MODEL_REPOSITORY,
-            ENV, $modelDir, $modelName
+            $env, $modelDir, $modelName
         );
         $isClassModel = class_exists($namespaceModel);
         if ($isClassModel) {
