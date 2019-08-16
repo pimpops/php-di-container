@@ -4,6 +4,7 @@ namespace Core\Worker\Template;
 
 use Core\Worker\Template\Theme;
 use Core\DI;
+use Core\Worker\Config\Config;
 
 class View {
 
@@ -27,7 +28,13 @@ class View {
       include $functionsFile;
     }
 
-    $templatePath = path('view') . '/themes/default/' . $template . '.php';
+    $theme = Config::item('defaultTheme');
+
+    if (ENV === 'Site') {
+      $theme = Setting::get('active_theme');
+    }
+
+    $templatePath = path('view') . '/themes/' . $theme . DS . $template . '.php';
 
     if (!is_file($templatePath)) {
       throw new \InvalidArgumentException(

@@ -100,6 +100,12 @@ class Theme {
   }
 
   public static function getThemePath() {
-    return path('view') . '/themes/default';
+    $theme = Config::item('defaultTheme');
+
+    if (ENV === 'Site') {
+      $theme = Setting::get('active_theme');
+    }
+
+    return path('view') . '/themes/' . $theme;
   }
 }

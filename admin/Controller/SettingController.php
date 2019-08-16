@@ -100,6 +100,19 @@ class SettingController extends AdminController {
 
     $this->model->setting->update($params);
   }
+
+  public function themes() {
+    $this->data['themes'] = getThemes();
+    $this->data['activeTheme'] = \Setting::get('active_theme');
+    $this->view->render('setting/themes', $this->data);
+  }
+
+  public function activateTheme()
+    {
+        $params = $this->request->post;
+        $this->load->model('Setting');
+        $this->model->setting->updateActiveTheme($params['theme']);
+    }
 }
 
 ?>

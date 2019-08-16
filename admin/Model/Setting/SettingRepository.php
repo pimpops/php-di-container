@@ -4,17 +4,19 @@ namespace Admin\Model\Setting;
 
 use Core\Model;
 
-class SettingRepository extends Model
-{
-    public function getSettings() {
+class SettingRepository extends Model {
 
-      $sql = $this->queryBuilder
-        ->select()
-        ->from('setting')
-        ->orderBy('id', 'ASC')
-        ->sql();
-        return $this->db->query($sql);
-    }
+    const SECTION_GENERAL = 'general'; 
+
+    public function getSettings() {
+        $sql = $this->queryBuilder
+          ->select()
+          ->from('setting')
+          ->where('section', self::SECTION_GENERAL)
+          ->orderBy('id', 'ASC')
+          ->sql();
+          return $this->db->query($sql, $this->queryBuilder->values);
+      }
 
     public function getSettingValue($keyField) {
         $sql = $this->queryBuilder->select('value')
@@ -36,5 +38,14 @@ class SettingRepository extends Model
                 $this->db->execute($sql, $this->queryBuilder->values);
             }
         }
+    }
+
+    public function updateActiveTheme($theme) {
+        $sql = $this->queryBuilder
+            ->update('setting')
+            ->set(['value' => $theme])
+            ->where('key_field', 'active_theme')
+            ->sql();
+        $this->db->execute($sql, $this->queryBuilder->values);
     }
 }

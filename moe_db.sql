@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: moe-mysql-app: 3306
--- Generation Time: Aug 16, 2019 at 05:41 AM
+-- Generation Time: Aug 16, 2019 at 05:07 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.2
 
@@ -66,10 +66,11 @@ INSERT INTO `menu_item` (`id`, `menu_id`, `name`, `link`, `parent`, `position`) 
 (3, 0, 'Sample post', '#', 0, 0),
 (4, 0, 'Contact', '#', 0, 0),
 (7, 1, 'Item 1', '/link', 0, 1),
-(8, 2, 'Item 1', '#', 0, 0),
-(9, 2, 'sdf', '#', 0, 2),
-(10, 2, 'New item', '#', 0, 1),
-(11, 1, 'Item 2', '/other link', 0, 0);
+(8, 2, 'Item 1d', '#', 0, 1),
+(9, 2, 'sdf', '#', 0, 3),
+(10, 2, 'New item', '#', 0, 2),
+(11, 1, 'Item 2', '/other link', 0, 0),
+(12, 2, 'New iieee', '#', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -109,18 +110,20 @@ CREATE TABLE `setting` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `key_field` varchar(100) NOT NULL,
-  `value` varchar(255) NOT NULL
+  `value` varchar(255) NOT NULL,
+  `section` varchar(155) NOT NULL DEFAULT 'general'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`id`, `name`, `key_field`, `value`) VALUES
-(1, 'Name site', 'name_site', 'Invest Eleven'),
-(2, 'Description', 'description', 'Site about private investments'),
-(3, 'Admin email', 'admin_email', 'admin@admin.com'),
-(4, 'Language', 'language', 'english');
+INSERT INTO `setting` (`id`, `name`, `key_field`, `value`, `section`) VALUES
+(1, 'Name site', 'name_site', 'Invest Eleven', 'general'),
+(2, 'Description', 'description', 'Site about private investments', 'general'),
+(3, 'Admin email', 'admin_email', 'admin@admin.com', 'general'),
+(4, 'Language', 'language', 'english', 'general'),
+(5, 'Active theme', 'active_theme', 'default', 'theme');
 
 -- --------------------------------------------------------
 
@@ -201,7 +204,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `menu_item`
 --
 ALTER TABLE `menu_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `page`
@@ -213,7 +216,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`

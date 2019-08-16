@@ -43,3 +43,28 @@ function languages() {
     }
     return $languages;
 }
+
+function getThemes() {
+    $themesPath = ROOT_DIR . '/../site/View' . DS . 'themes';
+    $list       = scandir($themesPath);
+    $baseUrl    = \Core\Worker\Config\Config::item('baseUrl');
+    $themes     = [];
+
+    if (!empty($list)) {
+        unset($list[0]);
+        unset($list[1]);
+        foreach ($list as $dir) {
+            $pathThemeDir = $themesPath . '/' . $dir;
+            $pathConfig   = $pathThemeDir . '/theme.json';
+            $pathScreen   = '/site/View/themes' . DS . $dir . '/screen.jpg';
+            if (is_dir($pathThemeDir) && is_file($pathConfig)) {
+                $config = file_get_contents($pathConfig);
+                $info   = json_decode($config);
+                $info->screen   = $pathScreen;
+                $info->dirTheme = $dir;
+                $themes[] = $info;
+            }
+        }
+    }
+    return $themes;
+}
