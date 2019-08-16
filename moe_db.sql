@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: moe-mysql-app: 3306
--- Generation Time: Aug 13, 2019 at 05:45 PM
+-- Generation Time: Aug 16, 2019 at 05:41 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.2
 
@@ -30,21 +30,46 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL DEFAULT '#',
-  `parent` tinyint(1) NOT NULL DEFAULT '0',
-  `position` int(5) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `name`, `link`, `parent`, `position`) VALUES
-(1, 'Home', '#', 0, 0),
-(2, 'About', '#', 0, 0),
-(3, 'Sample post', '#', 0, 0),
-(4, 'Contact', '#', 0, 0);
+INSERT INTO `menu` (`id`, `name`) VALUES
+(1, 'New menu'),
+(2, 'Menu 2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_item`
+--
+
+CREATE TABLE `menu_item` (
+  `id` int(11) NOT NULL,
+  `menu_id` int(11) DEFAULT '0',
+  `name` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL DEFAULT '#',
+  `parent` tinyint(1) NOT NULL DEFAULT '0',
+  `position` int(5) NOT NULL DEFAULT '999'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `menu_item`
+--
+
+INSERT INTO `menu_item` (`id`, `menu_id`, `name`, `link`, `parent`, `position`) VALUES
+(1, 0, 'Home', '#', 0, 0),
+(2, 0, 'About', '#', 0, 0),
+(3, 0, 'Sample post', '#', 0, 0),
+(4, 0, 'Contact', '#', 0, 0),
+(7, 1, 'Item 1', '/link', 0, 1),
+(8, 2, 'Item 1', '#', 0, 0),
+(9, 2, 'sdf', '#', 0, 2),
+(10, 2, 'New item', '#', 0, 1),
+(11, 1, 'Item 2', '/other link', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -117,7 +142,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `role`, `hash`, `date_reg`) VALUES
-(1, 'admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', '1e5b75a64ab81de944a516ddae316b73', '2019-04-16 18:16:33'),
+(1, 'admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', '2be70e1edcd4f8c46a298f7d6dd44a4a', '2019-04-16 18:16:33'),
 (2, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:25'),
 (3, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:25'),
 (4, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:26'),
@@ -134,6 +159,12 @@ INSERT INTO `user` (`id`, `email`, `password`, `role`, `hash`, `date_reg`) VALUE
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menu_item`
+--
+ALTER TABLE `menu_item`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -164,7 +195,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `menu_item`
+--
+ALTER TABLE `menu_item`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `page`
