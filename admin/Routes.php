@@ -13,6 +13,7 @@ $this->router->add('page-edit', '/admin/pages/edit/(id:int)', 'PageController:ed
 // Pages Routes (POST)
 $this->router->add('page-add', '/admin/page/add/', 'PageController:add', 'POST');
 $this->router->add('page-update', '/admin/page/update/', 'PageController:update', 'POST');
+$this->router->add('page-update-segment', '/admin/page/ajaxUpdateSegment/', 'PageController:ajaxUpdateSegment', 'POST');
 
 // Settings Routes (GET)
 $this->router->add('settings-general', '/admin/settings/general/', 'SettingController:general');
@@ -35,4 +36,3 @@ $this->router->add('install-plugin', '/admin/plugins/ajaxInstall/', 'PluginContr
 $this->router->add('activate-plugin', '/admin/plugins/ajaxActivate/', 'PluginController:ajaxActivate', 'POST');
 
 ?>
-

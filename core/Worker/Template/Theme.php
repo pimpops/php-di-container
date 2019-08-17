@@ -17,7 +17,7 @@ class Theme {
 
   public function __construct() {
     $this->path = path('view');
-    self::$themeMask = DS . mb_strtolower(ENV) . '/View/themes/%s';
+    self::$themeMask = '/%' . DS . mb_strtolower(ENV) . '/View/themes/%s';
 
     $this->theme = $this;
     $this->asset = new Asset();
@@ -32,7 +32,8 @@ class Theme {
   public static function getUrl() {
 
       $currentTheme = Config::item('defaultTheme', 'main');
-      return sprintf(self::$themeMask, $currentTheme);
+      $baseUrl      = Config::item('baseUrl', 'main');
+      return sprintf(self::$themeMask, $baseUrl, $currentTheme);
   }
 
   public static function getData() {

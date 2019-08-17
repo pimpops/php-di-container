@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: moe-mysql-app: 3306
--- Generation Time: Aug 17, 2019 at 07:48 AM
+-- Generation Time: Aug 17, 2019 at 09:42 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.2
 
@@ -82,6 +82,9 @@ CREATE TABLE `page` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
+  `segment` varchar(255) NOT NULL,
+  `type` varchar(155) NOT NULL DEFAULT 'page',
+  `status` varchar(155) NOT NULL DEFAULT 'draft',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -89,16 +92,10 @@ CREATE TABLE `page` (
 -- Dumping data for table `page`
 --
 
-INSERT INTO `page` (`id`, `title`, `content`, `date`) VALUES
-(1, 'aaaad', '<p>test update</p>', '2019-04-20 15:21:42'),
-(2, 'Second Page', '<p>Some content</p><ul><li>asdf</li><li>adf</li></ul><ol><li>asdf</li><li>adf​</li></ol>', '2019-04-20 15:22:29'),
-(3, 'dfFirst Paged', '<p><strong data-verified=\"redactor\" data-redactor-tag=\"strong\">sdf​This is the bold</strong></p>', '2019-04-20 15:26:57'),
-(4, 'dfdf', '<p>df​df</p>', '2019-04-20 21:56:47'),
-(5, 'some', '<p>some new​</p>', '2019-04-20 21:58:16'),
-(6, 'first', '<p>first​</p>', '2019-04-20 21:58:48'),
-(7, 'dockertt', '<p>docker content​</p>', '2019-04-20 22:04:28'),
-(8, 'd', '<p>d​</p>', '2019-04-20 22:10:19'),
-(9, 'Newaaaaddddsdf', '<p><strong data-redactor-tag=\"strong\"></strong></p><h1>?new pagedd\nd\nd\nf\nd\nf</h1><p>\n</p>', '2019-04-21 10:11:22');
+INSERT INTO `page` (`id`, `title`, `content`, `segment`, `type`, `status`, `date`) VALUES
+(10, 'dddsdf', '<p>â€‹eee</p>', 'page', 'page', 'publish', '2019-08-17 08:43:18'),
+(11, 'My new page', '<p>sdfsdfâ€‹</p>', 'my-new-page', 'page', 'publish', '2019-08-17 09:40:20'),
+(12, 'My new page', '<p>â€‹</p>', 'my-new-page', 'page', 'draft', '2019-08-17 09:41:10');
 
 -- --------------------------------------------------------
 
@@ -165,7 +162,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `role`, `hash`, `date_reg`) VALUES
-(1, 'admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', '2be70e1edcd4f8c46a298f7d6dd44a4a', '2019-04-16 18:16:33'),
+(1, 'admin@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'admin', '208dd95dfac99e16b058dcb0d2a12b41', '2019-04-16 18:16:33'),
 (2, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:25'),
 (3, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:25'),
 (4, 'adminNew@admin.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 'new', '2019-04-20 14:28:26'),
@@ -236,7 +233,7 @@ ALTER TABLE `menu_item`
 -- AUTO_INCREMENT for table `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `plugin`

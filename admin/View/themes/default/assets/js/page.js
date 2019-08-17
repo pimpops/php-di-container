@@ -45,8 +45,34 @@ var page = {
 
             },
             success: function(result){
-                window.location.reload();
+
+              window.location.reload();
             }
         });
-    } 
+    }, 
+    updateSegment: function(pageId, element) {
+        var formData = new FormData();
+
+        formData.append('page_id', pageId);
+        formData.append('segment', $(element).val());
+
+        var _this = this;
+        $.ajax({
+            url: '/admin/page/ajaxUpdateSegment/',
+            type: this.ajaxMethod,
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function(){
+
+            },
+            success: function(result){
+              result = JSON.parse(result);
+              if (result.success == "false") {
+                alert(result.message);
+              }
+              window.location.reload();
+            }
+        });
+    }, 
 };

@@ -44,6 +44,27 @@ function languages() {
     return $languages;
 }
 
+function getTypes($switch = 'page') {
+    $themePath = ROOT_DIR . '/../site/View' . DS . 'themes' . '/' . \Setting::get('active_theme');
+    
+    $list      = scandir($themePath);
+    $types     = [];
+    if (!empty($list)) {
+        unset($list[0]);
+        unset($list[1]);
+        foreach ($list as $name) {
+            if (\Core\Helper\Common::searchMatchString($name, $switch)) {
+                list($switch, $key) = explode('-', $name, 2);
+                if (!empty($key)) {
+                    list($nameType) = explode('.', $key, 2);
+                    $types[$nameType] = ucfirst($nameType);
+                }
+            }
+        }
+    }
+    return $types;
+}
+
 function getThemes() {
     $themesPath = ROOT_DIR . '/../site/View' . DS . 'themes';
     $list       = scandir($themesPath);
