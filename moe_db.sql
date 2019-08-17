@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: moe-mysql-app: 3306
--- Generation Time: Aug 16, 2019 at 05:07 PM
+-- Generation Time: Aug 17, 2019 at 07:48 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.2
 
@@ -66,11 +66,11 @@ INSERT INTO `menu_item` (`id`, `menu_id`, `name`, `link`, `parent`, `position`) 
 (3, 0, 'Sample post', '#', 0, 0),
 (4, 0, 'Contact', '#', 0, 0),
 (7, 1, 'Item 1', '/link', 0, 1),
-(8, 2, 'Item 1d', '#', 0, 1),
+(8, 2, 'Item 1d', '#', 0, 0),
 (9, 2, 'sdf', '#', 0, 3),
 (10, 2, 'New item', '#', 0, 2),
 (11, 1, 'Item 2', '/other link', 0, 0),
-(12, 2, 'New iieee', '#', 0, 0);
+(12, 2, 'New iieee', '#', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,27 @@ INSERT INTO `page` (`id`, `title`, `content`, `date`) VALUES
 (6, 'first', '<p>first​</p>', '2019-04-20 21:58:48'),
 (7, 'dockertt', '<p>docker content​</p>', '2019-04-20 22:04:28'),
 (8, 'd', '<p>d​</p>', '2019-04-20 22:10:19'),
-(9, 'Newaaaa', '<p>?new pagedd</p><p>d</p><p>d</p><p>f</p><p>d</p><p>f</p>', '2019-04-21 10:11:22');
+(9, 'Newaaaaddddsdf', '<p><strong data-redactor-tag=\"strong\"></strong></p><h1>?new pagedd\nd\nd\nf\nd\nf</h1><p>\n</p>', '2019-04-21 10:11:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plugin`
+--
+
+CREATE TABLE `plugin` (
+  `id` int(11) NOT NULL,
+  `directory` varchar(255) NOT NULL,
+  `is_active` varchar(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `plugin`
+--
+
+INSERT INTO `plugin` (`id`, `directory`, `is_active`) VALUES
+(3, 'ExamplePlugin', '0'),
+(4, 'LiveTest', '0');
 
 -- --------------------------------------------------------
 
@@ -123,7 +143,7 @@ INSERT INTO `setting` (`id`, `name`, `key_field`, `value`, `section`) VALUES
 (2, 'Description', 'description', 'Site about private investments', 'general'),
 (3, 'Admin email', 'admin_email', 'admin@admin.com', 'general'),
 (4, 'Language', 'language', 'english', 'general'),
-(5, 'Active theme', 'active_theme', 'default', 'theme');
+(5, 'Active theme', 'active_theme', 'new', 'theme');
 
 -- --------------------------------------------------------
 
@@ -177,6 +197,12 @@ ALTER TABLE `page`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `plugin`
+--
+ALTER TABLE `plugin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
@@ -211,6 +237,12 @@ ALTER TABLE `menu_item`
 --
 ALTER TABLE `page`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `plugin`
+--
+ALTER TABLE `plugin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `setting`

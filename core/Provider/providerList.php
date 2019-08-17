@@ -9,5 +9,6 @@ return [
   Core\Provider\Config\Provider::class,
   Core\Provider\Request\Provider::class,
   Core\Provider\Load\Provider::class,
-  Core\Provider\Customize\Provider::class
+  Core\Provider\Customize\Provider::class,
+  Core\Provider\Plugin\Provider::class
 ];

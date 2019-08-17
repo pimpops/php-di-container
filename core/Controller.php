@@ -13,6 +13,7 @@ abstract class Controller {
   protected $request;
   protected $queryBuilder;
   protected $load;
+  protected $plugin;
 
   public function __construct(DI $di) {
     $this->di = $di;
@@ -35,6 +36,14 @@ abstract class Controller {
     }
 
     return $this;
+  }
+
+  public function getRequest() {
+    return $this->request;
+  }
+
+  public function getPlugin() {
+    return $this->plugin;
   }
 }
 ?>

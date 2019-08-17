@@ -19,6 +19,7 @@ class Starter {
 
     try {
 
+      $this->initPlugins();
       $this->initRoutes();
       
     } catch (\Exception $e) {
@@ -26,6 +27,22 @@ class Starter {
       exit;
     }
 
+  }
+
+  public function initPlugins() {
+
+    $pluginService = $this->di->get('plugin');
+    $plugins = $pluginService->getActivePlugins();
+
+    foreach ($plugins as $plugin) {
+
+        $pluginClass  = '\\Site\\Plugin\\' . $plugin->directory . '\\Plugin';
+        $pluginObject = new $pluginClass($this->di);
+
+        if (method_exists($pluginClass, 'init')) {
+            $pluginObject->init();
+        }
+    }
   }
 
   public function initRoutes() {

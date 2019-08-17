@@ -68,3 +68,28 @@ function getThemes() {
     }
     return $themes;
 }
+
+function getPlugins() {
+
+    global $di;
+
+    $pluginsPath = ROOT_DIR . '/../site/' . DS . 'Plugin';
+    $list        = scandir($pluginsPath);
+    $plugins     = [];
+
+    if (!empty($list)) {
+        unset($list[0]);
+        unset($list[1]);
+
+        foreach ($list as $namePlugin) {
+            $namespace = '\\Site\\Plugin\\' . $namePlugin . '\\Plugin';
+            if (class_exists($namespace)) {
+                /** @var Engine\Plugin $plugin */
+                $plugin = new $namespace($di);
+                $plugins[$namePlugin] = $plugin->details();
+            }
+        }
+    }
+
+    return $plugins;
+}
